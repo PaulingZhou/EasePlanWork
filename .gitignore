@@ -28,3 +28,8 @@ target/
 .idea/*
 *.iml
 
+*.properties
+
+#mac system file
+.DS_Store
+
