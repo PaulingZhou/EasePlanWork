@@ -17,7 +17,20 @@ public interface CommodityDao {
             @Result(property = "uid", column = "commodityid"),
             @Result(property = "version", column = "commodityversion")
     })
-    @Select("select * from t_commodity")
+    @Select("select * from t_commodity A inner join " +
+            "(select `commodityid`, max(`commodityversion`) as `commodityversion` from t_commodity " +
+            "where `commodityid`=#{id}) B on A.`commodityversion`=B.`commodityversion` " +
+            "and A.`commodityid`=B.`commodityid`")
+    public List<Commodity> getCurrentCommodityById(@Param("id") int id);
+
+    @Results({
+            @Result(property = "uid", column = "commodityid"),
+            @Result(property = "version", column = "commodityversion")
+    })
+    @Select("select * from t_commodity A inner join " +
+            "(select `commodityid`, max(`commodityversion`) as `commodityversion` " +
+            "from t_commodity group by commodityid) B " +
+            "on A.`commodityid`=B.`commodityid` and A.`commodityversion`=B.`commodityversion`")
     public List<Commodity> getAllCurrentCommodity();
 
 }
