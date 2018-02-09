@@ -22,6 +22,8 @@
         <th>stamp</th>
         <th>user_uid</th>
         <th>ispermanent</th>
+        <th>text</th>
+        <th>picture</th>
     </tr>
     <c:forEach items="${CommodityList}" var="Commodity">
         <tr>
@@ -33,6 +35,11 @@
             <td>${Commodity.stamp}</td>
             <td>${Commodity.user_uid}</td>
             <td>${Commodity.ispermanent}</td>
+            <td>${Commodity.text}</td>
+            <td>
+                <c:if test="${Commodity.picture != null}">has picture!</c:if>
+                <c:if test="${Commodity.picture == null}">does not have picture!</c:if>
+            </td>
         </tr>
     </c:forEach>
 </table>

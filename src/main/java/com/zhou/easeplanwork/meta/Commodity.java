@@ -9,6 +9,8 @@ public class Commodity {
     private String stamp;
     private int user_uid;
     private boolean ispermanent;
+    private String text;
+    private byte[] picture;
 
     public Commodity() {
     }
@@ -75,6 +77,22 @@ public class Commodity {
 
     public void setIspermanent(boolean ispermanent) {
         this.ispermanent = ispermanent;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     @Override

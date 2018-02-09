@@ -10,23 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
-public class ListCommodityController {
+public class CommodityDetailsController {
 
     @Autowired
     SqlSessionFactory sqlSessionFactory;
 
-    @RequestMapping("/listCommodity.action")
-    public String doGet(Model model) {
+    @RequestMapping("/commodityDetail.action")
+    public String doGet(@Param("id") Integer id,
+                        @Param("version") Integer version,
+                        Model model) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
-        List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
-        for(Commodity commodity : commodities) {
-            System.out.println(commodity);
-        }
-        model.addAttribute("CommodityList", commodities);
-        return "ListCommodity";
+        Commodity commodity = version <= 0 ? commodityDao.getCurrentCommodityById(id) : commodityDao.getCommodityByIdAndVersion(id, version);
+        model.addAttribute("Commodity", commodity);
+        return "CommodityDetails";
     }
+
 }
