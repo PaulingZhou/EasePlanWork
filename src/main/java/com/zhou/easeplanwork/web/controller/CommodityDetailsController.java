@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CommodityDetailsController {
@@ -17,12 +18,12 @@ public class CommodityDetailsController {
     SqlSessionFactory sqlSessionFactory;
 
     @RequestMapping("/commodityDetail.action")
-    public String doGet(@Param("id") Integer id,
+    public String doGet(@RequestParam("id") Integer id,
                         @Param("version") Integer version,
                         Model model) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
-        Commodity commodity = version <= 0 ? commodityDao.getCurrentCommodityById(id) : commodityDao.getCommodityByIdAndVersion(id, version);
+        Commodity commodity = version == null || version <= 0 ? commodityDao.getCurrentCommodityById(id) : commodityDao.getCommodityByIdAndVersion(id, version);
         model.addAttribute("Commodity", commodity);
         return "CommodityDetails";
     }

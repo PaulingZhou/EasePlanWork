@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface CommodityDao {
 
-    @Insert("insert into t_commodity(uid, version,title) values(#{uid}, #{version}, #{title})")
+    @Insert("insert into t_commodity(uid, version, title, summary, price, stamp, " +
+            "user_uid, ispermanent, text, picture) values" +
+            "(#{uid}, #{version}, #{title}, #{summary}, #{price}, #{stamp}," +
+            "#{user_uid}, #{ispermanent}, #{text}, #{picture})")
     public void addCommodity(Commodity commodity);
 
     @Delete("delete from t_commodity where uid=#{uid} and version=#{version}")

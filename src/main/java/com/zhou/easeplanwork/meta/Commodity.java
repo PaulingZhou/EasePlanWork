@@ -5,7 +5,7 @@ public class Commodity {
     private int version;
     private String title;
     private String summary;
-    private String price;
+    private double price;
     private String stamp;
     private int user_uid;
     private boolean ispermanent;
@@ -47,11 +47,11 @@ public class Commodity {
         this.summary = summary;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

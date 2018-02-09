@@ -2,7 +2,6 @@ package com.zhou.easeplanwork.web.controller;
 
 import com.zhou.easeplanwork.dao.CommodityDao;
 import com.zhou.easeplanwork.meta.Commodity;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,9 @@ public class ListCommodityController {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
-        for(Commodity commodity : commodities) {
-            System.out.println(commodity);
-        }
+//        for(Commodity commodity : commodities) {
+//            System.out.println(commodity);
+//        }
         model.addAttribute("CommodityList", commodities);
         return "ListCommodity";
     }
