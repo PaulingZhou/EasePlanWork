@@ -5,6 +5,9 @@ public class Commodity {
     private int version;
     private String title;
 
+    public Commodity() {
+    }
+
     public Commodity(int uid, int version, String title) {
         this.uid = uid;
         this.version = version;
@@ -33,5 +36,14 @@ public class Commodity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "uid=" + uid +
+                ", version=" + version +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

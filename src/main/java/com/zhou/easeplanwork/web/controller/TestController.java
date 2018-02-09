@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class TestController {
 
@@ -25,8 +27,12 @@ public class TestController {
 //        System.out.println("username:" + user1.getUsername() + ", id: " + user1.getId());
 //        System.out.println("username:" + user2.getUsername() + ", id: " + user2.getId());
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
-        Commodity commodity = new Commodity(3, 1, "he changes china");
-        commodityDao.deleteComodity(commodity);
+        List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
+        for(Commodity commodity : commodities) {
+            System.out.println(commodity);
+        }
+//        Commodity commodity = new Commodity(3, 1, "he changes china");
+//        commodityDao.deleteComodity(commodity);
 //        commodityDao.addCommodity(commodity);
         return "index";
     }
