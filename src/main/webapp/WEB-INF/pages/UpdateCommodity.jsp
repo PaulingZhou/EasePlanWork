@@ -1,4 +1,5 @@
-<%@ page import="com.zhou.easeplanwork.meta.Commodity" %><%--
+<%@ page import="com.zhou.easeplanwork.meta.Commodity" %>
+<%--
   Created by IntelliJ IDEA.
   User: zhou
   Date: 2018/2/9
@@ -7,14 +8,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<% Commodity commodity = (Commodity) request.getSession().getAttribute("Commodity");--%>
-    <%--request.getSession().setAttribute("Commodity", commodity); --%>
+    <%--request.getSession().setAttribute("Commodity", commodity);--%>
 <%--%>--%>
 <html>
 <head>
     <title>商品更新</title>
 </head>
 <body>
-<form method="post" action="UpdateCommodity.modify">
+<form method="post" action="updateCommodity.modify">
     <div>
         <h1>标题</h1>
         <input type="text" name="title" value="${Commodity.title}">
@@ -34,6 +35,10 @@
     <div>
         <input type="submit" name="submit" value="提交">
     </div>
+</form>
+<form action="updateCommodity.updatePicture" method="post" enctype="multipart/form-data">
+    <input type="file" name="picture" value="请选择图片"/>
+    <input type="submit" name="sumit" value="上传"/>
 </form>
 </body>
 </html>

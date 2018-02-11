@@ -51,7 +51,7 @@
     </tr>
 </table>
 <div>
-    <form action="UpdateCommodity.edit" method="get">
+    <form action="updateCommodity.edit" method="get">
         <input type="submit" name="submit" value="发布">
     </form>
 </div>
