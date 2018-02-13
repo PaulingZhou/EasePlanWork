@@ -20,12 +20,17 @@ public class CommodityDetailsController {
     @RequestMapping("/commodityDetail.action")
     public String doGet(@RequestParam("id") Integer id,
                         @Param("version") Integer version,
+                        @Param("getpicture") Boolean getpicture,
                         Model model) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         Commodity commodity = version == null || version <= 0 ? commodityDao.getCurrentCommodityById(id) : commodityDao.getCommodityByIdAndVersion(id, version);
         model.addAttribute("Commodity", commodity);
-        return "CommodityDetails";
+        if (getpicture != null && getpicture == true) {
+            return "CommodityPicture";
+        } else {
+            return "CommodityDetails";
+        }
     }
 
 }
