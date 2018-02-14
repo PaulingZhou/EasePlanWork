@@ -46,21 +46,8 @@
     </tr>
     <tr>
         <th>图片</th>
-        <td><c:if test="${Commodity.picture != null}">has picture!</c:if>
-            <c:if test="${Commodity.picture == null}">does not have picture!</c:if></td>
-    </tr>
-    <tr>
-        <th>图片</th>
         <c:set var="picture" value="${Commodity.picture}"/>
         <td><img src="commodityDetail.action?id=${Commodity.uid}&version=${Commodity.version}&getpicture=1"/></td>
-        <%--<%--%>
-        <%--out.println("<td>");--%>
-        <%--byte[] picture = (byte[]) pageContext.getAttribute("picture");--%>
-        <%--ServletOutputStream sout = response.getOutputStream();--%>
-        <%--out.write(picture);--%>
-        <%--out.println("</td>");--%>
-        <%--%>--%>
-        <%--<td><img src="detailCommodity.action?commodityid=${Commodity.commodityid}&getpicture=1"/></td>--%>
     </tr>
 </table>
 <div>
