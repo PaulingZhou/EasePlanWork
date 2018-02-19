@@ -14,4 +14,7 @@
     sout.write(picture);
     sout.flush();
     sout.close();
+    response.flushBuffer();
+    out.clear();
+    out = pageContext.pushBody();
 %>
