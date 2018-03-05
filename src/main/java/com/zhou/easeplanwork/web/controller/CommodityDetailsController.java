@@ -29,7 +29,7 @@ public class CommodityDetailsController {
         if (getpicture != null && getpicture == true) {
             return "CommodityPicture";
         } else {
-            return "CommodityDetails";
+            return "edit.ftl";
         }
     }
 
