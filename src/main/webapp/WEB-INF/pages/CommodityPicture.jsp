@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="mage/jpeg; charset=utf8" language="java" %>
-<c:set var="picture" value="${Commodity.picture}"/>
+<c:set var="picture" value="${commodity.picture}"/>
 <%
     byte[] picture = (byte[]) pageContext.getAttribute("picture");
     ServletOutputStream sout = response.getOutputStream();
