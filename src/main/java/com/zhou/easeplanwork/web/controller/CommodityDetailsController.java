@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class CommodityDetailsController {
 
@@ -26,6 +29,18 @@ public class CommodityDetailsController {
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         Commodity commodity = version == null || version <= 0 ? commodityDao.getCurrentCommodityById(id) : commodityDao.getCommodityByIdAndVersion(id, version);
         model.addAttribute("Commodity", commodity);
+        Map user = new HashMap();
+        user.put("username", "Pauling");
+        user.put("usertype", 1);
+        Map product = new HashMap();
+        product.put("id", commodity.getUid());
+        product.put("title", commodity.getTitle());
+        product.put("summary", commodity.getSummary());
+        product.put("detail", commodity.getText());
+        product.put("image", "commodityDetail.action?id="+commodity.getUid()+"&version="+commodity.getVersion()+"&getpicture=1");
+        product.put("price", commodity.getPrice());
+        model.addAttribute("user", user);
+        model.addAttribute("product", product);
         if (getpicture != null && getpicture == true) {
             return "CommodityPicture";
         } else {
