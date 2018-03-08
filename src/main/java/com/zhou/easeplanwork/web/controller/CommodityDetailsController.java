@@ -67,7 +67,7 @@ public class CommodityDetailsController {
         product.put("title", commodity.getTitle());
         product.put("summary", commodity.getSummary());
         product.put("detail", commodity.getText());
-        product.put("image", "/ne/commodity/"+id+"/image");
+        product.put("image", "/commodity/"+id+"/image");
         product.put("price", commodity.getPrice());
         model.addAttribute("user", user);
         model.addAttribute("product", product);

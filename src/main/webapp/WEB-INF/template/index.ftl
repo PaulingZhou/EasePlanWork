@@ -37,8 +37,8 @@
         <#else>
             <#list CommodityList as x>
                 <li id="p-${x.uid}">
-                    <a href="/ne/commodity/${x.uid}" class="link">
-                        <div class="img"><img src="/ne/commodity/${x.uid}/image" alt="${x.title}"></div>
+                    <a href="/commodity/${x.uid}" class="link">
+                        <div class="img"><img src="/commodity/${x.uid}/image" alt="${x.title}"></div>
                         <h3>${x.title}</h3>
                         <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
                         <#if user?? && user.usertype?? && user.usertype==0 && x.isBuy><span class="had"><b>已购买</b></span></#if>
