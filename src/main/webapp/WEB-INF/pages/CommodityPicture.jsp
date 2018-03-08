@@ -10,11 +10,13 @@
 <c:set var="picture" value="${commodity.picture}"/>
 <%
     byte[] picture = (byte[]) pageContext.getAttribute("picture");
-    ServletOutputStream sout = response.getOutputStream();
-    sout.write(picture);
-    sout.flush();
-    sout.close();
-    response.flushBuffer();
-    out.clear();
-    out = pageContext.pushBody();
+    if(picture != null) {
+        ServletOutputStream sout = response.getOutputStream();
+        sout.write(picture);
+        sout.flush();
+        sout.close();
+        response.flushBuffer();
+        out.clear();
+        out = pageContext.pushBody();
+    }
 %>

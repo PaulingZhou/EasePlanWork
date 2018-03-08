@@ -7,12 +7,20 @@ public class Commodity {
     private String summary;
     private double price;
     private String stamp;
-    private int user_uid;
+    private int owener_id;
     private boolean ispermanent;
     private String text;
     private byte[] picture;
 
     public Commodity() {
+    }
+
+    public int getOwener_id() {
+        return owener_id;
+    }
+
+    public void setOwener_id(int owener_id) {
+        this.owener_id = owener_id;
     }
 
     public int getUid() {
@@ -61,14 +69,6 @@ public class Commodity {
 
     public void setStamp(String stamp) {
         this.stamp = stamp;
-    }
-
-    public int getUser_uid() {
-        return user_uid;
-    }
-
-    public void setUser_uid(int user_uid) {
-        this.user_uid = user_uid;
     }
 
     public boolean isIspermanent() {
