@@ -24,9 +24,6 @@ public class ListCommodityController {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
-//        for(Commodity commodity : commodities) {
-//            System.out.println(commodity);
-//        }
         Map user = new HashMap();
         user.put("username","zhou");
         user.put("usertype",0);

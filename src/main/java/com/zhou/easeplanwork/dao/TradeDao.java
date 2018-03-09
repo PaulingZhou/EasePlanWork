@@ -1,7 +1,6 @@
 package com.zhou.easeplanwork.dao;
 
 import com.zhou.easeplanwork.meta.Trade;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

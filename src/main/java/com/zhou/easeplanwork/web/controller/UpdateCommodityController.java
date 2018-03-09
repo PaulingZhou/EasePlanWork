@@ -50,14 +50,14 @@ public class UpdateCommodityController {
         newCommodity.setText(text);
         //upload picture
         MultipartFile picture = (MultipartFile) httpSession.getAttribute("picture");
-        if(picture != null) {
-            try {
-                byte[] pictureByte = picture.getBytes();
-                newCommodity.setPicture(pictureByte);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if(picture != null) {
+//            try {
+//                byte[] pictureByte = picture.getBytes();
+//                newCommodity.setPicture(pictureByte);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date updateDate = new Date();
         String stamp = simpleDateFormat.format(updateDate);

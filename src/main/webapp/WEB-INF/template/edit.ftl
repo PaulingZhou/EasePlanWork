@@ -30,7 +30,7 @@
             <div class="fmitem">
                 <label class="fmlab">图片：</label>
                 <div class="fmipt">
-                    <input class="u-ipt ipt" name="image" value="${product.image}" placeholder="图片地址"/>
+                    <input class="u-ipt ipt" name="image" value="/images/cup_002.jpg" placeholder="图片地址"/>
                 </div>
             </div>
             <div class="fmitem">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </form>
-        <span class="imgpre"><img src="${product.image}" alt="" id="imgpre"></span>
+        <span class="imgpre"><img src="${product.image_url}" alt="" id="imgpre"></span>
     </div>
     </#if>
 </div>

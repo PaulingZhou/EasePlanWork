@@ -10,7 +10,19 @@ public class Commodity {
     private int owener_id;
     private boolean ispermanent;
     private String text;
-    private byte[] picture;
+    private String image_url;
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 
     public Commodity() {
     }
@@ -87,13 +99,6 @@ public class Commodity {
         this.text = text;
     }
 
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
 
     @Override
     public String toString() {
