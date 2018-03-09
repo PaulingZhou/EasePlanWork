@@ -4,6 +4,15 @@ public class User {
     private int id;
     private String username;
     private String password;
+    private int usertype;
+
+    public int getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(int usertype) {
+        this.usertype = usertype;
+    }
 
     public String getPassword() {
         return password;

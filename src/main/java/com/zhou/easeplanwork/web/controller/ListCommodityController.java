@@ -40,9 +40,6 @@ public class ListCommodityController {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
-        Map user = new HashMap();
-        user.put("username", "zhou");
-        user.put("usertype", 0);
         model.addAttribute("listType",1);
         model.addAttribute("CommodityList", commodities);
         return "index.ftl";
