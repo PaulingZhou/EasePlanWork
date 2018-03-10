@@ -47,7 +47,7 @@ public class CommodityController {
         return "show.ftl";
     }
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listCommodity(Model model) {
         List<Commodity> commodities = listService.listCommodity();
         model.addAttribute("listType",1);
