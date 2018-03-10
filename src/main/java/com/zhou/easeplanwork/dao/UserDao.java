@@ -15,10 +15,5 @@ public interface UserDao {
     @Select("select * from t_user where uid=#{id}")
     public User findUserById(int id);
 
-//    @Results({
-//            @Result(property = "id", column = "uid"),
-//            @Result(property = "username", column = "username")
-//    })
-//    @Select("select * from t_user where username=#{username}")
-    public User findUserByUsername(@Param("username") String username);
+    public User findUserByUsername(String username);
 }

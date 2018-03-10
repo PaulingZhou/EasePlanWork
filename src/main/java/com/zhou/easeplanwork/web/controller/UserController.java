@@ -34,18 +34,21 @@ public class UserController {
         if(user != null && user.getPassword().equals(password)) {
             Map userMap = new HashMap();
             userMap.put("username", user.getUsername());
+            userMap.put("user_id", user.getUid());
             userMap.put("usertype", user.getUsertype());
             httpSession.setAttribute("user", userMap);
+            map.put("code", 200);
         } else {
-            System.out.println("fail");
+            map.put("code", 403);
         }
-        map.put("code", 200);
         return map;
     }
 
     @RequestMapping("/logout")
     public String logout(HttpSession httpSession) {
-        httpSession.removeAttribute("user");
+        if(httpSession.getAttribute("user") != null) {
+            httpSession.removeAttribute("user");
+        }
         return "redirect:/login";
     }
 }

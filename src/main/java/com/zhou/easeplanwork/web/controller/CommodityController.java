@@ -1,6 +1,9 @@
 package com.zhou.easeplanwork.web.controller;
 
 import com.zhou.easeplanwork.meta.Commodity;
+import com.zhou.easeplanwork.meta.ShowTrade;
+import com.zhou.easeplanwork.meta.Trade;
+import com.zhou.easeplanwork.meta.User;
 import com.zhou.easeplanwork.service.EditService;
 import com.zhou.easeplanwork.service.ListService;
 import com.zhou.easeplanwork.service.ShowService;
@@ -11,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Controller
 public class CommodityController {
@@ -39,18 +41,33 @@ public class CommodityController {
         product.put("image_url", commodity.getImage_url());
         product.put("isBuy", false);
         product.put("price", commodity.getPrice());
-        Map user = new HashMap();
-        user.put("usertype", 0);
-        user.put("username", "buyer");
-        model.addAttribute("user", user);
         model.addAttribute("product", product);
         return "show.ftl";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String listCommodity(Model model) {
+    public String listCommodity(HttpSession httpSession, Model model) {
         List<Commodity> commodities = listService.listCommodity();
-        model.addAttribute("listType",1);
+        Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
+        if(user != null) {
+            int user_id = (int)user.get("user_id");
+            List<ShowTrade> tradeList = listService.listTrade(user_id);
+            int user_type = (int) user.get("usertype");
+            if(user_type == 0) {
+                Set<Integer> buy_set = listService.listAllTradeCommodityIdByBuyerId(user_id);
+                for(Commodity commodity: commodities) {
+                    commodity.setBuy(buy_set.contains(commodity.getUid()));
+                }
+            } else if(user_type == 1) {
+                Set<Integer> trade_commodity_id = listService.listAllTradeCommodityId();
+                Set<Integer> commodity_id_from_ownerid = listService.listAllCommodityIdByOwnerId(user_id);
+                Set<Integer> sell_set = trade_commodity_id;
+                sell_set.retainAll(commodity_id_from_ownerid);
+                for(Commodity commodity: commodities) {
+                    commodity.setSell(sell_set.contains(commodity.getUid()));
+                }
+            }
+        }
         model.addAttribute("CommodityList", commodities);
         return "index.ftl";
     }
@@ -67,10 +84,10 @@ public class CommodityController {
         product.put("image_url", commodity.getImage_url());
         product.put("isBuy", false);
         product.put("price", commodity.getPrice());
-        Map user = new HashMap();
-        user.put("usertype", 1);
-        user.put("username", "seller");
-        model.addAttribute("user", user);
+//        Map user = new HashMap();
+//        user.put("usertype", 1);
+//        user.put("username", "seller");
+//        model.addAttribute("user", user);
         model.addAttribute("product", product);
         return "edit.ftl";
     }

@@ -1,7 +1,7 @@
 package com.zhou.easeplanwork.meta;
 
 public class User {
-    private int id;
+    private int uid;
     private String username;
     private String password;
     private int usertype;
@@ -22,12 +22,12 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getUid() {
+        return uid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {

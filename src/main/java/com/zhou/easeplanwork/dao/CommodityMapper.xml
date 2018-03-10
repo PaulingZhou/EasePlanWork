@@ -27,4 +27,10 @@
     <select id="getCurrentCommodityId" resultType="Integer">
         select DISTINCT max(uid) from t_commodity
     </select>
+    <select id="getAllCurrentCommodityByOwnerId" resultType="com.zhou.easeplanwork.meta.Commodity">
+        select * from t_commodity A inner join
+  (select uid, max(version) as version from t_commodity
+  group by uid) B on A.version=B.version
+        and A.uid = B.uid where owner_uid=1
+    </select>
 </mapper>

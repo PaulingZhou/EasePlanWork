@@ -7,8 +7,30 @@ public class Commodity {
     private String summary;
     private double price;
     private int owner_uid;
-    private boolean ispermanent;
     private int count;
+    private String text;
+    private String image_url;
+    private boolean buy;
+    private boolean sell;
+
+    public boolean isBuy() {
+        return buy;
+    }
+
+    public void setBuy(boolean buy) {
+        this.buy = buy;
+    }
+
+    public void setSell(boolean sell) {
+        this.sell = sell;
+    }
+
+    public boolean isSell() {
+        return sell;
+    }
+
+    public Commodity() {
+    }
 
     public int getCount() {
         return count;
@@ -17,9 +39,6 @@ public class Commodity {
     public void setCount(int count) {
         this.count = count;
     }
-
-    private String text;
-    private String image_url;
 
     public void setPrice(double price) {
         this.price = price;
@@ -31,9 +50,6 @@ public class Commodity {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
-    }
-
-    public Commodity() {
     }
 
     public int getOwner_uid() {
@@ -82,14 +98,6 @@ public class Commodity {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public boolean isIspermanent() {
-        return ispermanent;
-    }
-
-    public void setIspermanent(boolean ispermanent) {
-        this.ispermanent = ispermanent;
     }
 
     public String getText() {

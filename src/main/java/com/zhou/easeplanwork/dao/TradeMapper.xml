@@ -12,11 +12,15 @@
         )
     </insert>
 
-    <select id="getCurrentBatch" resultType="int">
+    <select id="getCurrentBatch" resultType="Integer">
         SELECT DISTINCT max(batch_id) FROM t_trade
     </select>
 
     <select id="getTradeInfoByBuyerId" resultType="com.zhou.easeplanwork.meta.Trade">
         SELECT * FROM t_trade WHERE buyer_id = #{buyer_id}
+    </select>
+
+    <select id="getAllTrade" resultType="com.zhou.easeplanwork.meta.Trade">
+        SELECT * FROM t_trade
     </select>
 </mapper>

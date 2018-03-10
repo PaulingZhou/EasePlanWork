@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ListServiceImpl implements ListService {
@@ -44,4 +46,42 @@ public class ListServiceImpl implements ListService {
         List<Commodity> commodities = commodityDao.getAllCurrentCommodity();
         return commodities;
     }
+
+    @Override
+    public Set<Integer> listAllTradeCommodityId() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
+        Set<Integer> commodityIds = new HashSet<>();
+        List<Trade> tradeList = tradeDao.getAllTrade();
+        for(Trade trade:tradeList) {
+            commodityIds.add(trade.getCommodity_id());
+        }
+        return commodityIds;
+    }
+
+    @Override
+    public Set<Integer> listAllTradeCommodityIdByBuyerId(int buyer_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
+        Set<Integer> commodityIds = new HashSet<>();
+        List<Trade> tradeList = tradeDao.getTradeInfoByBuyerId(buyer_id);
+        for(Trade trade:tradeList) {
+            commodityIds.add(trade.getCommodity_id());
+        }
+        return commodityIds;
+    }
+
+    @Override
+    public Set<Integer> listAllCommodityIdByOwnerId(int owner_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+        List<Commodity> commodityList = commodityDao.getAllCurrentCommodityByOwnerId(owner_id);
+        Set<Integer> commodityIds = new HashSet<>();
+        for(Commodity commodity:commodityList) {
+            commodityIds.add(commodity.getUid());
+        }
+        return commodityIds;
+    }
+
+
 }

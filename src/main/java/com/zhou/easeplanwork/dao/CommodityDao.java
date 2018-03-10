@@ -25,12 +25,10 @@ public interface CommodityDao {
 //    @Select("select * from t_commodity where `uid`=#{uid} and `version`=#{version}")
     public Commodity getCommodityByIdAndVersion(@Param("uid") int uid, @Param("version") int version);
 
-//    @Select("select * from t_commodity A inner join " +
-//            "(select `uid`, max(`version`) as `version` " +
-//            "from t_commodity group by uid) B " +
-//            "on A.`uid`=B.`uid` and A.`version`=B.`version`")
     public List<Commodity> getAllCurrentCommodity();
 
     public Integer getCurrentCommodityId();
+
+    public List<Commodity> getAllCurrentCommodityByOwnerId(int owner_id);
 
 }
