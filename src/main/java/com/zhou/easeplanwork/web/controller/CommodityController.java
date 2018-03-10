@@ -95,4 +95,28 @@ public class CommodityController {
         model.addAttribute("product", product);
         return "editSubmit.ftl";
     }
+
+    @RequestMapping(value = "/public")
+    public String publicCommodity(Model model) {
+        return "public.ftl";
+    }
+
+    @RequestMapping(value = "/publicSubmit", method = RequestMethod.POST)
+    public String submitPublicCommodity(@RequestParam(value = "title") String title,
+                                        @RequestParam(value = "summary") String summary,
+                                        @RequestParam(value = "image") String image_url,
+                                        @RequestParam(value = "detail") String detail,
+                                        @RequestParam(value = "price") String price_unForm,
+                                        Model model) {
+        int price = Integer.valueOf(price_unForm.replace(",",""));
+        int commodityId = editService.getCurrentCommodityId();
+        editService.publicCommodity(commodityId+1,title,summary,image_url,detail,price);
+        Commodity commodity = showService.getCommodityByIdAndVersion(commodityId+1,1);
+        Map product = new HashMap();
+        if(commodity != null) {
+            product.put("id", commodity.getUid());
+        }
+        model.addAttribute("product", product);
+        return "publicSubmit.ftl";
+    }
 }

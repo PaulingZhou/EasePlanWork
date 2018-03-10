@@ -27,4 +27,26 @@ public class EditServiceImpl implements EditService{
         commodityDao.addCommodity(commodity1);
     }
 
+    public void publicCommodity(int commodityId, String title, String summary, String image_url, String detail, Integer price) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+        Commodity commodity = new Commodity();
+        commodity.setTitle(title);
+        commodity.setVersion(1);
+        commodity.setSummary(summary);
+        commodity.setImage_url(image_url);
+        commodity.setText(detail);
+        commodity.setPrice(price);
+        commodity.setOwner_uid(2);
+        commodity.setCount(1);
+        commodity.setUid(commodityId);
+        commodityDao.addCommodity(commodity);
+    }
+
+    public int getCurrentCommodityId() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+        return commodityDao.getCurrentCommodityId();
+    }
+
 }

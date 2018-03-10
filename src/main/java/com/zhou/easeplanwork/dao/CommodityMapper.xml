@@ -24,4 +24,7 @@
             from t_commodity group by uid) B
             on A.`uid`=B.`uid` and A.`version`=B.`version`
     </select>
+    <select id="getCurrentCommodityId" resultType="Integer">
+        select DISTINCT max(uid) from t_commodity
+    </select>
 </mapper>

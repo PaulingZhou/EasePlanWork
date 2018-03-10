@@ -31,6 +31,6 @@ public interface CommodityDao {
 //            "on A.`uid`=B.`uid` and A.`version`=B.`version`")
     public List<Commodity> getAllCurrentCommodity();
 
-
+    public Integer getCurrentCommodityId();
 
 }

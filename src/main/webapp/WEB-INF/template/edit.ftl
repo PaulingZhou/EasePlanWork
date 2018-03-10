@@ -30,7 +30,7 @@
             <div class="fmitem">
                 <label class="fmlab">图片：</label>
                 <div class="fmipt">
-                    <input class="u-ipt ipt" name="image" value="/images/cup_002.jpg" placeholder="图片地址"/>
+                    <input class="u-ipt ipt" name="image" value="${product.image_url}" placeholder="图片地址"/>
                 </div>
             </div>
             <div class="fmitem">
