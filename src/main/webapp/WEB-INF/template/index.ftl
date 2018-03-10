@@ -37,7 +37,7 @@
         <#else>
             <#list CommodityList as x>
                 <li id="p-${x.uid}">
-                    <a href="/commodity/${x.uid}" class="link">
+                    <a href="/edit?id=${x.uid}" class="link">
                         <div class="img"><img src="${x.image_url}" alt="${x.title}"></div>
                         <h3>${x.title}</h3>
                         <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
