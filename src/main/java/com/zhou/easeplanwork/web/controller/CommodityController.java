@@ -1,6 +1,7 @@
 package com.zhou.easeplanwork.web.controller;
 
 import com.zhou.easeplanwork.meta.Commodity;
+import com.zhou.easeplanwork.service.EditService;
 import com.zhou.easeplanwork.service.ListService;
 import com.zhou.easeplanwork.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,13 @@ public class CommodityController {
     @Autowired
     ListService listService;
 
+    @Autowired
+    EditService editService;
+
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String showCommodity(@RequestParam(value = "id") Integer id,
                                 Model model) {
-        Commodity commodity = showService.getCommodityById(id);
+        Commodity commodity = showService.getCurrentCommodityById(id);
         Map product = new HashMap();
         product.put("id", commodity.getUid());
         product.put("title", commodity.getTitle());
@@ -51,10 +55,10 @@ public class CommodityController {
         return "index.ftl";
     }
 
-    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editCommodity(@RequestParam(value = "id") Integer id,
                                 Model model) {
-        Commodity commodity = showService.getCommodityById(id);
+        Commodity commodity = showService.getCurrentCommodityById(id);
         Map product = new HashMap();
         product.put("id", commodity.getUid());
         product.put("title", commodity.getTitle());
@@ -69,5 +73,26 @@ public class CommodityController {
         model.addAttribute("user", user);
         model.addAttribute("product", product);
         return "edit.ftl";
+    }
+
+    @RequestMapping(value = "/editSubmit", method = RequestMethod.POST)
+    public String submitEditCommodity(@RequestParam(value = "id") Integer id,
+                                      @RequestParam(value = "title") String title,
+                                      @RequestParam(value = "summary") String summary,
+                                      @RequestParam(value = "image") String image_url,
+                                      @RequestParam(value = "detail") String detail,
+                                      @RequestParam(value = "price") String price_unForm,
+                                      Model model) {
+        Commodity commodity = showService.getCurrentCommodityById(id);
+        int version = commodity.getVersion();
+        int price = Integer.valueOf(price_unForm.replace(",",""));
+        editService.editCommodity(commodity, title, summary, image_url, detail, price);
+        Commodity newCommodity = showService.getCommodityByIdAndVersion(id, version);
+        Map product = new HashMap();
+        if(newCommodity != null) {
+            product.put("id", newCommodity.getUid());
+        }
+        model.addAttribute("product", product);
+        return "editSubmit.ftl";
     }
 }

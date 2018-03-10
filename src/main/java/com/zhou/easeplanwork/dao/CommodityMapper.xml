@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.easeplanwork.dao.CommodityDao">
     <insert id="addCommodity" parameterType="com.zhou.easeplanwork.meta.Commodity">
-        insert into t_commodity(uid,version,title,summary,price,stamp,user_uid,text,picture) values(#{uid},#{version},#{title},#{summary},#{price},#{stamp},#{user_uid},#{text},#{picture})
+        insert into t_commodity(uid,version,title,summary,price,owner_uid,text,image_url,count) values(#{uid},#{version},#{title},#{summary},#{price},#{owner_uid},#{text},#{image_url},#{count})
     </insert>
     <delete id="deleteCommodity">
         delete from t_commodity where uid=#{uid} and version=#{version}

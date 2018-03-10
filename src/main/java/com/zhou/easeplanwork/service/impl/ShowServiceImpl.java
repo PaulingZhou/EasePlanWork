@@ -15,10 +15,18 @@ public class ShowServiceImpl implements ShowService{
     SqlSessionFactory sqlSessionFactory;
 
     @Override
-    public Commodity getCommodityById(int commodity_id) {
+    public Commodity getCurrentCommodityById(int commodity_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         Commodity commodity = commodityDao.getCurrentCommodityById(commodity_id);
+        return commodity;
+    }
+
+    @Override
+    public Commodity getCommodityByIdAndVersion(int commodity_id, int commodity_version) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+        Commodity commodity = commodityDao.getCommodityByIdAndVersion(commodity_id, commodity_version);
         return commodity;
     }
 }

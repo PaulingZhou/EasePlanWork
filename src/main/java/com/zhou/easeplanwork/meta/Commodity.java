@@ -6,9 +6,18 @@ public class Commodity {
     private String title;
     private String summary;
     private double price;
-    private String stamp;
-    private int owener_id;
+    private int owner_uid;
     private boolean ispermanent;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     private String text;
     private String image_url;
 
@@ -27,12 +36,12 @@ public class Commodity {
     public Commodity() {
     }
 
-    public int getOwener_id() {
-        return owener_id;
+    public int getOwner_uid() {
+        return owner_uid;
     }
 
-    public void setOwener_id(int owener_id) {
-        this.owener_id = owener_id;
+    public void setOwner_uid(int owner_uid) {
+        this.owner_uid = owner_uid;
     }
 
     public int getUid() {
@@ -73,14 +82,6 @@ public class Commodity {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getStamp() {
-        return stamp;
-    }
-
-    public void setStamp(String stamp) {
-        this.stamp = stamp;
     }
 
     public boolean isIspermanent() {

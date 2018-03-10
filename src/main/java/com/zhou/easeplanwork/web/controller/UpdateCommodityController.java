@@ -61,7 +61,7 @@ public class UpdateCommodityController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date updateDate = new Date();
         String stamp = simpleDateFormat.format(updateDate);
-        newCommodity.setStamp(stamp);
+//        newCommodity.setStamp(stamp);
         commodityDao.addCommodity(newCommodity);
 
         return "redirect:/commodityDetail.action?id="+newCommodity.getUid();
