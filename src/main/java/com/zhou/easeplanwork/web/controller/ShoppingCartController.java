@@ -1,45 +1,49 @@
 package com.zhou.easeplanwork.web.controller;
 
-import com.zhou.easeplanwork.dao.ShoppingCartDao;
+import com.alibaba.fastjson.JSON;
+import java.net.URLEncoder;
+import com.zhou.easeplanwork.meta.Commodity;
 import com.zhou.easeplanwork.meta.ShoppingCart;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import com.zhou.easeplanwork.service.ListService;
+import com.zhou.easeplanwork.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ShoppingCartController {
+
     @Autowired
-    SqlSessionFactory sqlSessionFactory;
+    ListService listService;
 
-    @RequestMapping("/addToShoppingCart.action")
-    public String addToShoppingCart(@RequestParam(value = "user_id") Integer user_id,
-                                    @RequestParam(value = "commodity_id") Integer commodity_id,
-                                    @Param(value = "count") Integer count) {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        ShoppingCartDao shoppingCartDao = sqlSession.getMapper(ShoppingCartDao.class);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setCommodity_id(commodity_id);
-        shoppingCart.setUser_id(user_id);
-        shoppingCart.setCount(count == null ? 1 : count);
-        shoppingCartDao.addToShoppingCart(shoppingCart);
-        return "index";
-    }
+    @Autowired
+    ShowService showService;
 
-    @RequestMapping("/shoppingCart.List")
-    public String showShoppingCart(@RequestParam(value = "user_id") Integer user_id, Model model) {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        ShoppingCartDao shoppingCartDao = sqlSession.getMapper(ShoppingCartDao.class);
-        List<ShoppingCart> products = new ArrayList<>();
-        products = shoppingCartDao.getShoppingCart(user_id);
-        model.addAttribute("product", products);
-        return "show.ftl";
+    @RequestMapping("/settleAccount")
+    public String showSettleAccount(HttpSession httpSession, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
+        Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
+        if(user != null) {
+            int user_id = (int)user.get("user_id");
+            List<ShoppingCart> products = listService.listShoppingCartById(user_id);
+            for(ShoppingCart product:products) {
+                int commodity_id = product.getId();
+                Commodity commodity = showService.getCurrentCommodityById(commodity_id);
+                product.setNum(commodity.getCount());
+                product.setTitle(commodity.getTitle());
+                product.setPrice(commodity.getPrice());
+            }
+            String jsonMsg = JSON.toJSONString(products);
+            jsonMsg = URLEncoder.encode(jsonMsg,"utf-8");
+            Cookie cookie = new Cookie("products", jsonMsg);
+            httpResponse.addCookie(cookie);
+        }
+        return "settleAccount.ftl";
     }
 }

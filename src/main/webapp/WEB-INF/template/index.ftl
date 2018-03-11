@@ -23,17 +23,20 @@
     <#else>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
-        <#if !user?? || !user.usertype?? || user.usertype == 0 || listType == 1>
+        <#if !user?? || !user.usertype?? || user.usertype == 0>
             <#list CommodityList as x>
+            <#if !(listType == 1 && x.buy)>
                 <li id="p-${x.uid}">
                     <a href="/show?id=${x.uid}" class="link">
                         <div class="img"><img src="${x.image_url}" alt="${x.title}"></div>
                         <h3>${x.title}</h3>
                         <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
-                   <#if user?? && user.usertype?? && user.usertype==0 && x.buy><span
-                           class="had"><b>已购买</b></span></#if>
+                        <#if user?? && user.usertype?? && user.usertype==0 && x.buy>
+                            <span class="had"><b>已购买</b></span>
+                        </#if>
                     </a>
                 </li>
+            </#if>
             </#list>
         <#else>
             <#list CommodityList as x>

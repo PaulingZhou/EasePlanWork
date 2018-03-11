@@ -14,6 +14,23 @@
 		get:function(id){
 			return d.getElementById(id);
 		},
+		getCookie:function (name) {
+            var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+            if(arr=document.cookie.match(reg))
+                return decodeURIComponent(arr[2]);
+            else
+                return null;
+        },
+        modifyOne:function (products,id,num) {
+            for(var i = 0; i < products.length; i++){
+            	var product = products[i];
+            	if(product.id == id) {
+            		product.num = num;
+				}
+            }
+            var str = JSON.stringify(products);
+            document.cookie="products" + "=" + str;
+		},
 		serialize:function(data){
 			if(!data) return '';
 			var arr = [];

@@ -1,8 +1,10 @@
 package com.zhou.easeplanwork.service.impl;
 
 import com.zhou.easeplanwork.dao.CommodityDao;
+import com.zhou.easeplanwork.dao.ShoppingCartDao;
 import com.zhou.easeplanwork.dao.TradeDao;
 import com.zhou.easeplanwork.meta.Commodity;
+import com.zhou.easeplanwork.meta.ShoppingCart;
 import com.zhou.easeplanwork.meta.Trade;
 import com.zhou.easeplanwork.service.ListService;
 import org.apache.ibatis.session.SqlSession;
@@ -32,6 +34,7 @@ public class ListServiceImpl implements ListService {
             Commodity commodity = commodityDao.getCommodityByIdAndVersion(trade.getId(), trade.getCommodity_version());
             trade.setBuyPrice(commodity.getPrice());
             trade.setTitle(commodity.getTitle());
+            trade.setImage_url(commodity.getImage_url());
         }
         return buyList;
     }
@@ -82,6 +85,13 @@ public class ListServiceImpl implements ListService {
             commodityIds.add(commodity.getUid());
         }
         return commodityIds;
+    }
+
+    @Override
+    public List<ShoppingCart> listShoppingCartById(int user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ShoppingCartDao shoppingCartDao = sqlSession.getMapper(ShoppingCartDao.class);
+        return shoppingCartDao.getShoppingCart(user_id);
     }
 
 

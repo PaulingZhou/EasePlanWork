@@ -1,6 +1,7 @@
 package com.zhou.easeplanwork.service;
 
 import com.zhou.easeplanwork.meta.Commodity;
+import com.zhou.easeplanwork.meta.ShoppingCart;
 import com.zhou.easeplanwork.meta.Trade;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface ListService {
     public Set<Integer> listAllTradeCommodityId();
     public Set<Integer> listAllTradeCommodityIdByBuyerId(int buyer_id);
     public Set<Integer> listAllCommodityIdByOwnerId(int owner_id);
+    public List<ShoppingCart> listShoppingCartById(int user_id);
 }

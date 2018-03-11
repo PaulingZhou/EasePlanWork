@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TradeController {
@@ -22,9 +23,11 @@ public class TradeController {
         return "index";
     }
 
-    @RequestMapping("/listTrade")
-    public String listTrade(@RequestParam(value = "buyer_id") int buyer_id, Model model) {
-        List<Trade> buyList = listService.listTrade(buyer_id);
+    @RequestMapping("/account")
+    public String listTrade(HttpSession httpSession,Model model) {
+        Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
+        int user_id = (int)user.get("user_id");
+        List<Trade> buyList = listService.listTrade(user_id);
         model.addAttribute("buyList", buyList);
         return "account.ftl";
     }

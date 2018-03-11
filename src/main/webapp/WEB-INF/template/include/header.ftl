@@ -12,6 +12,9 @@
             <#if user?? && user.usertype?? && user.usertype==0>
             <li><a href="account">账务</a></li>
             </#if>
+            <#if user?? && user.usertype?? && user.usertype==0>
+            <li><a href="settleAccount">购物车</a></li>
+            </#if>
             <#if user?? && user.usertype?? && user.usertype==1>
             <li><a href="public">发布</a></li>
             </#if>
