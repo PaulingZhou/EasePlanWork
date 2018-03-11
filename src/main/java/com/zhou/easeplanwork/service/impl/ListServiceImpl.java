@@ -3,7 +3,6 @@ package com.zhou.easeplanwork.service.impl;
 import com.zhou.easeplanwork.dao.CommodityDao;
 import com.zhou.easeplanwork.dao.TradeDao;
 import com.zhou.easeplanwork.meta.Commodity;
-import com.zhou.easeplanwork.meta.ShowTrade;
 import com.zhou.easeplanwork.meta.Trade;
 import com.zhou.easeplanwork.service.ListService;
 import org.apache.ibatis.session.SqlSession;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,20 +23,17 @@ public class ListServiceImpl implements ListService {
 
     @Override
     @Transactional
-    public List<ShowTrade> listTrade(int buyer_id) {
+    public List<Trade> listTrade(int buyer_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         List<Trade> buyList = tradeDao.getTradeInfoByBuyerId(buyer_id);
-        List<ShowTrade> buyListShow = new ArrayList<>();
         for(Trade trade: buyList) {
-            ShowTrade trade1 = new ShowTrade(trade);
-            Commodity commodity = commodityDao.getCommodityByIdAndVersion(trade.getCommodity_id(), trade.getCommodity_version());
-            trade1.setBuyPrice(commodity.getPrice());
-            trade1.setTitle(commodity.getTitle());
-            buyListShow.add(trade1);
+            Commodity commodity = commodityDao.getCommodityByIdAndVersion(trade.getId(), trade.getCommodity_version());
+            trade.setBuyPrice(commodity.getPrice());
+            trade.setTitle(commodity.getTitle());
         }
-        return buyListShow;
+        return buyList;
     }
 
     @Override
@@ -58,7 +53,7 @@ public class ListServiceImpl implements ListService {
         Set<Integer> commodityIds = new HashSet<>();
         List<Trade> tradeList = tradeDao.getAllTrade();
         for(Trade trade:tradeList) {
-            commodityIds.add(trade.getCommodity_id());
+            commodityIds.add(trade.getId());
         }
         return commodityIds;
     }
@@ -71,7 +66,7 @@ public class ListServiceImpl implements ListService {
         Set<Integer> commodityIds = new HashSet<>();
         List<Trade> tradeList = tradeDao.getTradeInfoByBuyerId(buyer_id);
         for(Trade trade:tradeList) {
-            commodityIds.add(trade.getCommodity_id());
+            commodityIds.add(trade.getId());
         }
         return commodityIds;
     }

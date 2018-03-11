@@ -1,9 +1,6 @@
 package com.zhou.easeplanwork.web.controller;
 
 import com.zhou.easeplanwork.meta.Commodity;
-import com.zhou.easeplanwork.meta.ShowTrade;
-import com.zhou.easeplanwork.meta.Trade;
-import com.zhou.easeplanwork.meta.User;
 import com.zhou.easeplanwork.service.EditService;
 import com.zhou.easeplanwork.service.ListService;
 import com.zhou.easeplanwork.service.ShowService;
@@ -53,7 +50,6 @@ public class CommodityController {
         Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
         if(user != null) {
             int user_id = (int)user.get("user_id");
-            List<ShowTrade> tradeList = listService.listTrade(user_id);
             int user_type = (int) user.get("usertype");
             if(user_type == 0) {
                 Set<Integer> buy_set = listService.listAllTradeCommodityIdByBuyerId(user_id);
@@ -86,10 +82,6 @@ public class CommodityController {
         product.put("image_url", commodity.getImage_url());
         product.put("isBuy", false);
         product.put("price", commodity.getPrice());
-//        Map user = new HashMap();
-//        user.put("usertype", 1);
-//        user.put("username", "seller");
-//        model.addAttribute("user", user);
         model.addAttribute("product", product);
         return "edit.ftl";
     }

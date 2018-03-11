@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.easeplanwork.dao.TradeDao">
+
     <insert id="addTrade" parameterType="com.zhou.easeplanwork.meta.Trade">
         INSERT INTO t_trade (
         batch_id, commodity_id, commodity_version, buyer_id, count, time_stamp
@@ -16,11 +17,17 @@
         SELECT DISTINCT max(batch_id) FROM t_trade
     </select>
 
-    <select id="getTradeInfoByBuyerId" resultType="com.zhou.easeplanwork.meta.Trade">
+    <select id="getTradeInfoByBuyerId" resultMap="TradeResultMap">
         SELECT * FROM t_trade WHERE buyer_id = #{buyer_id}
     </select>
 
     <select id="getAllTrade" resultType="com.zhou.easeplanwork.meta.Trade">
         SELECT * FROM t_trade
     </select>
+
+    <resultMap id="TradeResultMap" type="com.zhou.easeplanwork.meta.Trade">
+        <id column="commodity_id" property="id"/>
+        <result column="time_stamp" property="buyTime"/>
+    </resultMap>
+
 </mapper>
