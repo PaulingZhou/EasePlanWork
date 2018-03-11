@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class ListServiceImpl implements ListService {
     SqlSessionFactory sqlSessionFactory;
 
     @Override
+    @Transactional
     public List<ShowTrade> listTrade(int buyer_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
@@ -40,6 +42,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    @Transactional
     public List<Commodity> listCommodity() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
@@ -48,6 +51,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    @Transactional
     public Set<Integer> listAllTradeCommodityId() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
@@ -60,6 +64,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    @Transactional
     public Set<Integer> listAllTradeCommodityIdByBuyerId(int buyer_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
@@ -72,6 +77,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    @Transactional
     public Set<Integer> listAllCommodityIdByOwnerId(int owner_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);

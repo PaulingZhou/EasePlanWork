@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ShowServiceImpl implements ShowService{
@@ -15,6 +16,7 @@ public class ShowServiceImpl implements ShowService{
     SqlSessionFactory sqlSessionFactory;
 
     @Override
+    @Transactional
     public Commodity getCurrentCommodityById(int commodity_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
@@ -23,6 +25,7 @@ public class ShowServiceImpl implements ShowService{
     }
 
     @Override
+    @Transactional
     public Commodity getCommodityByIdAndVersion(int commodity_id, int commodity_version) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);

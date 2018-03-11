@@ -37,21 +37,10 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED"/>
-			<tx:method name="insert*" propagation="REQUIRED"/>
-			<tx:method name="update*" propagation="REQUIRED"/>
-			<tx:method name="delete*" propagation="REQUIRED"/>
-			<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
-		</tx:attributes>
-	</tx:advice>
-	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.zhou.easeplanwork.service.impl.*.*(..))"/>
-	</aop:config>
-
 	<context:component-scan base-package="com.zhou.easeplanwork.dao" />
+
+	<!-- 事务注解驱动 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<bean id="user" class="com.zhou.easeplanwork.meta.User" />
 </beans>

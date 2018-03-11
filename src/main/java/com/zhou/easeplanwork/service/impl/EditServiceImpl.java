@@ -7,13 +7,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EditServiceImpl implements EditService{
 
     @Autowired
     SqlSessionFactory sqlSessionFactory;
-
+    @Transactional
     public void editCommodity(Commodity commodity, String title, String summary, String image_url, String detail, Integer price) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
@@ -27,6 +28,7 @@ public class EditServiceImpl implements EditService{
         commodityDao.addCommodity(commodity1);
     }
 
+    @Transactional
     public void publicCommodity(int commodityId, String title, String summary, String image_url, String detail, Integer price) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
@@ -43,6 +45,7 @@ public class EditServiceImpl implements EditService{
         commodityDao.addCommodity(commodity);
     }
 
+    @Transactional
     public int getCurrentCommodityId() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
