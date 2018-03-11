@@ -8,7 +8,7 @@ import java.util.Set;
 public interface TradeDao {
 
     public Boolean addTrade(Trade trade);
-    public int getCurrentBatch();
+    public int getCurrentBatchId();
     List<Trade> getTradeInfoByBuyerId(int buyer_id);
     List<Trade> getAllTrade();
 

@@ -8,4 +8,8 @@ public interface ShowService {
 
     public Commodity getCommodityByIdAndVersion(int commodity_id, int commodity_version);
 
+    public int getCurrentCommodityId();
+
+    public int getCurrentTradeBatchId();
+
 }

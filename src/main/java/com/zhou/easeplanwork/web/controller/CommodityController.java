@@ -120,7 +120,7 @@ public class CommodityController {
                                         @RequestParam(value = "price") String price_unForm,
                                         Model model) {
         double price = Double.valueOf(price_unForm.replace(",",""));
-        int commodityId = editService.getCurrentCommodityId();
+        int commodityId = showService.getCurrentCommodityId();
         editService.publicCommodity(commodityId+1,title,summary,image_url,detail,price);
         Commodity commodity = showService.getCommodityByIdAndVersion(commodityId+1,1);
         Map product = new HashMap();

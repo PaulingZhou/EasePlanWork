@@ -8,12 +8,12 @@
         INSERT INTO t_trade (
         batch_id, commodity_id, commodity_version, buyer_id, count, time_stamp
         ) VALUES (
-        #{batch_id}, #{commodity_id}, #{commodity_version},
-        #{buyer_id}, #{count}, #{time_stamp}
+        #{batch_id}, #{id}, #{commodity_version},
+        #{buyer_id}, #{count}, #{buyTime}
         )
     </insert>
 
-    <select id="getCurrentBatch" resultType="Integer">
+    <select id="getCurrentBatchId" resultType="Integer">
         SELECT DISTINCT max(batch_id) FROM t_trade
     </select>
 

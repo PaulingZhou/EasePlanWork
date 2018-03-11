@@ -35,7 +35,6 @@ public class ShoppingCartController {
             for(ShoppingCart product:products) {
                 int commodity_id = product.getId();
                 Commodity commodity = showService.getCurrentCommodityById(commodity_id);
-                product.setNum(commodity.getCount());
                 product.setTitle(commodity.getTitle());
                 product.setPrice(commodity.getPrice());
             }
@@ -46,4 +45,6 @@ public class ShoppingCartController {
         }
         return "settleAccount.ftl";
     }
+
+
 }

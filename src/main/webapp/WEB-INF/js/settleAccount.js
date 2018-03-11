@@ -61,7 +61,7 @@
 	var layer = new Layer();
 	$('Account').onclick = function(e){
 		var newProducts = products.map(function(arr){
-			return {'id':arr.id,'number':arr.num};
+			return {'id':arr.id,'count':arr.num};
 		});
 		console.log(newProducts);
 		var ele = e.target;
@@ -92,6 +92,7 @@
 					 xhr.open('post','/api/buy');
 					 xhr.setRequestHeader('Content-Type','application/json');
 					 xhr.send(data);
+					 console.log(data);
 				}.bind(this)
 			}).show();
 			return;
