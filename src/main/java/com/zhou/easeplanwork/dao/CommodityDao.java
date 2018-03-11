@@ -9,7 +9,9 @@ public interface CommodityDao {
 
     public void addCommodity(Commodity commodity);
 
-    public void deleteComodity(Commodity commodity);
+    public void deleteCommodity(Commodity commodity);
+
+    public void deleteCommodityById(int id);
 
     public Commodity getCurrentCommodityById(@Param("uid") int uid);
 

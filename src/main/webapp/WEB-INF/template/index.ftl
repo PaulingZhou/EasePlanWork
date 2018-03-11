@@ -4,9 +4,8 @@
 <body>
 <#include "include/support.ftl">
 <#include "include/header.ftl">
-<#--<#assign listType = RequestParameters['type']!0>-->
 <#assign listTypeString = RequestParameters['type']!0>
-<#assign listType = listTypeString?number
+<#assign listType = listTypeString?number>
 <div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <div class="tab">
@@ -24,17 +23,17 @@
     <#else>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
-        <#if user?? && user.usertype?? && user.usertype == 0 && listType == 1>
+        <#if !user?? || !user.usertype?? || user.usertype == 0 || listType == 1>
             <#list CommodityList as x>
-                <#if !x.buy>
                 <li id="p-${x.uid}">
                     <a href="/show?id=${x.uid}" class="link">
                         <div class="img"><img src="${x.image_url}" alt="${x.title}"></div>
                         <h3>${x.title}</h3>
                         <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
+                   <#if user?? && user.usertype?? && user.usertype==0 && x.buy><span
+                           class="had"><b>已购买</b></span></#if>
                     </a>
                 </li>
-                </#if>
             </#list>
         <#else>
             <#list CommodityList as x>
@@ -43,8 +42,6 @@
                         <div class="img"><img src="${x.image_url}" alt="${x.title}"></div>
                         <h3>${x.title}</h3>
                         <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
-                        <#if user?? && user.usertype?? && user.usertype==0 && x.buy><span
-                                class="had"><b>已购买</b></span></#if>
                         <#if user?? && user.usertype?? && user.usertype==1 && x.sell><span
                                 class="had"><b>已售出</b></span></#if>
                     </a>
@@ -58,7 +55,7 @@
     </#if>
 </div>
 <#include "include/footer.ftl">
-<script type="/text/javascript" src="/js/global.js"></script>
-<script type="/text/javascript" src="/js/pageIndex.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/pageIndex.js"></script>
 </body>
 </html>

@@ -14,8 +14,10 @@ public class EditServiceImpl implements EditService{
 
     @Autowired
     SqlSessionFactory sqlSessionFactory;
+
+    @Override
     @Transactional
-    public void editCommodity(Commodity commodity, String title, String summary, String image_url, String detail, Integer price) {
+    public void editCommodity(Commodity commodity, String title, String summary, String image_url, String detail, double price) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         Commodity commodity1 = commodity;
@@ -28,8 +30,9 @@ public class EditServiceImpl implements EditService{
         commodityDao.addCommodity(commodity1);
     }
 
+    @Override
     @Transactional
-    public void publicCommodity(int commodityId, String title, String summary, String image_url, String detail, Integer price) {
+    public void publicCommodity(int commodityId, String title, String summary, String image_url, String detail, double price) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         Commodity commodity = new Commodity();
@@ -45,11 +48,20 @@ public class EditServiceImpl implements EditService{
         commodityDao.addCommodity(commodity);
     }
 
+    @Override
     @Transactional
     public int getCurrentCommodityId() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         return commodityDao.getCurrentCommodityId();
+    }
+
+    @Override
+    @Transactional
+    public void deleteCommodityById(int commodityId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+        commodityDao.deleteCommodityById(commodityId);
     }
 
 }

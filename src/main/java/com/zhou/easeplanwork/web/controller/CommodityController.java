@@ -7,12 +7,14 @@ import com.zhou.easeplanwork.meta.User;
 import com.zhou.easeplanwork.service.EditService;
 import com.zhou.easeplanwork.service.ListService;
 import com.zhou.easeplanwork.service.ShowService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -102,7 +104,7 @@ public class CommodityController {
                                       Model model) {
         Commodity commodity = showService.getCurrentCommodityById(id);
         int version = commodity.getVersion();
-        int price = Integer.valueOf(price_unForm.replace(",",""));
+        double price = Double.valueOf(price_unForm.replace(",",""));
         editService.editCommodity(commodity, title, summary, image_url, detail, price);
         Commodity newCommodity = showService.getCommodityByIdAndVersion(id, version);
         Map product = new HashMap();
@@ -125,7 +127,7 @@ public class CommodityController {
                                         @RequestParam(value = "detail") String detail,
                                         @RequestParam(value = "price") String price_unForm,
                                         Model model) {
-        int price = Integer.valueOf(price_unForm.replace(",",""));
+        double price = Double.valueOf(price_unForm.replace(",",""));
         int commodityId = editService.getCurrentCommodityId();
         editService.publicCommodity(commodityId+1,title,summary,image_url,detail,price);
         Commodity commodity = showService.getCommodityByIdAndVersion(commodityId+1,1);
@@ -135,5 +137,19 @@ public class CommodityController {
         }
         model.addAttribute("product", product);
         return "publicSubmit.ftl";
+    }
+
+    @RequestMapping(value = "/api/delete")
+    @ResponseBody
+    public Map<String, Object> deleteCommodity(@Param(value = "id") Integer id) {
+        Map resultMap = new HashMap();
+        editService.deleteCommodityById(id);
+        Commodity commodity = showService.getCurrentCommodityById(id);
+        if(commodity == null) {
+            resultMap.put("code",200);
+        } else {
+            resultMap.put("code", 403);
+        }
+        return resultMap;
     }
 }
