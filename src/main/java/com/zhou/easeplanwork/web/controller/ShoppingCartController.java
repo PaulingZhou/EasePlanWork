@@ -2,7 +2,6 @@ package com.zhou.easeplanwork.web.controller;
 
 import com.alibaba.fastjson.JSON;
 
-import java.io.BufferedReader;
 import java.net.URLEncoder;
 import com.zhou.easeplanwork.meta.Commodity;
 import com.zhou.easeplanwork.meta.ShoppingCart;
