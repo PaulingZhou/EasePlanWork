@@ -21,7 +21,7 @@
         SELECT * FROM t_trade WHERE buyer_id = #{buyer_id}
     </select>
 
-    <select id="getAllTrade" resultType="com.zhou.easeplanwork.meta.Trade">
+    <select id="getAllTrade" resultMap="TradeResultMap">
         SELECT * FROM t_trade
     </select>
 

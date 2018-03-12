@@ -34,7 +34,7 @@
         select * from t_commodity A inner join
             (select uid, max(version) as version from t_commodity
             group by uid) B on A.version=B.version
-            and A.uid = B.uid where owner_uid=1
+            and A.uid = B.uid where owner_uid=#{owner_id}
     </select>
     <update id="updateCount">
         update t_commodity set count = #{count}  where uid = #{commodity_id} and version = #{commodity_version};

@@ -1,9 +1,7 @@
 package com.zhou.easeplanwork.web.controller;
 
-import com.zhou.easeplanwork.dao.UserDao;
 import com.zhou.easeplanwork.meta.User;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import com.zhou.easeplanwork.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    SqlSessionFactory sqlSessionFactory;
+    LoginService loginService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -27,11 +25,9 @@ public class UserController {
     @RequestMapping("/api/login")
     @ResponseBody
     public Map<String, Object> login(String userName, String password, HttpSession httpSession) {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        User user = userDao.findUserByUsername(userName);
+        User user = loginService.login(userName, password);
         Map<String, Object> map = new HashMap<>();
-        if(user != null && user.getPassword().equals(password)) {
+        if(user != null) {
             Map userMap = new HashMap();
             userMap.put("username", user.getUsername());
             userMap.put("user_id", user.getUid());
