@@ -14,4 +14,6 @@ public interface EditService {
     public void deleteCommodityById(int commodityId);
 
     public void addTrade(List<Trade> tradeList, int batch_id, int buyer_id);
+
+    public void addToShoppingCart(int user_id, int commodity_id, int count);
 }

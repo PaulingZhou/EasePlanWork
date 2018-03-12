@@ -4,6 +4,7 @@ import com.zhou.easeplanwork.dao.CommodityDao;
 import com.zhou.easeplanwork.dao.ShoppingCartDao;
 import com.zhou.easeplanwork.dao.TradeDao;
 import com.zhou.easeplanwork.meta.Commodity;
+import com.zhou.easeplanwork.meta.ShoppingCart;
 import com.zhou.easeplanwork.meta.Trade;
 import com.zhou.easeplanwork.service.EditService;
 import org.apache.ibatis.session.SqlSession;
@@ -90,6 +91,17 @@ public class EditServiceImpl implements EditService{
             tradeDao.addTrade(trade);
             shoppingCartDao.deleteShoppingCart(trade.getBuyer_id(), trade.getId());
         }
+    }
+
+    @Override
+    public void addToShoppingCart(int user_id, int commodity_id, int count) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ShoppingCartDao shoppingCartDao = sqlSession.getMapper(ShoppingCartDao.class);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setId(commodity_id);
+        shoppingCart.setUser_id(user_id);
+        shoppingCart.setNum(count);
+        shoppingCartDao.addToShoppingCart(shoppingCart);
     }
 
 }

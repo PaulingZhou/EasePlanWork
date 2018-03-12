@@ -58,7 +58,6 @@ public class TradeController {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
         } catch (Exception e) { /*report an error*/ }
-        System.out.println(jb.toString());
         List<Trade> tradeList = JSON.parseArray(jb.toString(), Trade.class);
         Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
         int user_id = (int)user.get("user_id");
@@ -66,7 +65,6 @@ public class TradeController {
         try {
             editService.addTrade(tradeList, batch_id, user_id);
         } catch (RuntimeException e) {
-            System.out.println("库存不足");
             result.put("message", "库存不足");
         }
         List<Trade> tradeList1 = listService.listTradeByBatchId(batch_id);

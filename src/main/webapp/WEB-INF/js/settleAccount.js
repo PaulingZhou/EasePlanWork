@@ -87,8 +87,9 @@
 				                	loading.result(message||'购买失败');
 				                }
 				            }
-					};
-					 xhr.open('post','/api/buy');
+                        loading.hide();
+                    };
+                    xhr.open('post','/api/buy');
 					 xhr.setRequestHeader('Content-Type','application/json');
 					 xhr.send(data);
 					 console.log(data);
@@ -97,6 +98,6 @@
 			return;
 	};
 	$('back').onclick = function(){
-		location.href = window.history.back();
+		location.href = "/";
 	}
 })(window,document);

@@ -7,8 +7,8 @@
 insert into t_shoppingcart (
             user_id, commodity_id, count
         ) values (
-            #{user_id}, #{commodity_id}, #{count}
-        ) on duplicate key update count=count+#{count}    </insert>
+            #{user_id}, #{id}, #{num}
+        ) on duplicate key update count=count+#{num}    </insert>
     <select id="getShoppingCart" resultMap="shoppingCartResultMap">
         SELECT * FROM t_shoppingcart WHERE user_id=#{user_id}
     </select>
@@ -19,6 +19,6 @@ insert into t_shoppingcart (
 
     <resultMap id="shoppingCartResultMap" type="com.zhou.easeplanwork.meta.ShoppingCart">
         <id column="commodity_id" property="id" />
-        <id column="count" property="num" />
+        <result column="count" property="num" />
     </resultMap>
 </mapper>
