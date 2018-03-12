@@ -25,6 +25,10 @@
         SELECT * FROM t_trade
     </select>
 
+    <select id="getTradeInfoByBatchId" resultMap="TradeResultMap">
+        select * from t_trade WHERE batch_id = #{batch_id};
+    </select>
+
     <resultMap id="TradeResultMap" type="com.zhou.easeplanwork.meta.Trade">
         <id column="commodity_id" property="id"/>
         <result column="time_stamp" property="buyTime"/>

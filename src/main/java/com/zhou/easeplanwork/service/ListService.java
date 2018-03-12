@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ListService {
+    public List<Trade> listTradeByBatchId(int batch_id);
     public List<Trade> listTrade(int buyer_id);
     public List<Commodity> listCommodity();
     public Set<Integer> listAllTradeCommodityId();

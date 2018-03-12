@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,12 +47,12 @@ public class TradeController {
 
 
     @RequestMapping("/api/buy")
-    public String buyFromShoppingCart(HttpServletRequest request,
-                                      HttpServletResponse response,
+    @ResponseBody
+    public Map<String, Object> buyFromShoppingCart(HttpServletRequest request,
                                       HttpSession httpSession){
-        String msg = request.getParameter("data");
         StringBuffer jb = new StringBuffer();
-        String line = null;
+        String line;
+        Map<String, Object> result = new HashMap<>();
         try {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
@@ -61,9 +62,17 @@ public class TradeController {
         List<Trade> tradeList = JSON.parseArray(jb.toString(), Trade.class);
         Map<String, Object> user = (Map<String, Object>)httpSession.getAttribute("user");
         int user_id = (int)user.get("user_id");
-        int batch_id = showService.getCurrentTradeBatchId();
-        editService.addTrade(tradeList, batch_id+1, user_id);
-        return "";
+        int batch_id = showService.getCurrentTradeBatchId()+1;
+        try {
+            editService.addTrade(tradeList, batch_id, user_id);
+        } catch (RuntimeException e) {
+            System.out.println("库存不足");
+            result.put("message", "库存不足");
+        }
+        List<Trade> tradeList1 = listService.listTradeByBatchId(batch_id);
+        int code = tradeList.size() == tradeList1.size() ? 200 : 404;
+        result.put("code", code);
+        return result;
     }
 
 }

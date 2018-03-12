@@ -1,6 +1,7 @@
 package com.zhou.easeplanwork.service.impl;
 
 import com.zhou.easeplanwork.dao.CommodityDao;
+import com.zhou.easeplanwork.dao.ShoppingCartDao;
 import com.zhou.easeplanwork.dao.TradeDao;
 import com.zhou.easeplanwork.meta.Commodity;
 import com.zhou.easeplanwork.meta.Trade;
@@ -70,11 +71,15 @@ public class EditServiceImpl implements EditService{
         SqlSession sqlSession = sqlSessionFactory.openSession();
         CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
         TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
+        ShoppingCartDao shoppingCartDao = sqlSession.getMapper(ShoppingCartDao.class);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date updateDate = new Date();
         String stamp = simpleDateFormat.format(updateDate);
         for(Trade trade:tradeList) {
             Commodity commodity = commodityDao.getCurrentCommodityById(trade.getId());
+            int residueCount = commodity.getCount()-trade.getCount();
+            if(residueCount < 0) throw new RuntimeException();
+            commodityDao.updateCount(commodity.getUid(), commodity.getVersion(), residueCount);
             trade.setBatch_id(batch_id);
             trade.setCommodity_version(commodity.getVersion());
             trade.setBuyer_id(buyer_id);
@@ -83,6 +88,7 @@ public class EditServiceImpl implements EditService{
             trade.setTitle(commodity.getTitle());
             trade.setImage_url(commodity.getImage_url());
             tradeDao.addTrade(trade);
+            shoppingCartDao.deleteShoppingCart(trade.getBuyer_id(), trade.getId());
         }
     }
 

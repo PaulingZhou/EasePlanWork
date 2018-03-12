@@ -6,8 +6,7 @@
 	var name = 'products';
 	var productsStr = util.getCookie(name);
 	var products = eval('(' + productsStr + ')');
-	var str = JSON.stringify(products);
-    document.cookie="products" + "=" + str;
+	util.setCookie(name,products);
     var $ = function(id){
 		return document.getElementById(id);
 	}

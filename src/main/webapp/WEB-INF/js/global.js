@@ -21,6 +21,14 @@
             else
                 return null;
         },
+        deleteCookie:function(name) {
+            if (this.getCookie(name))
+                this.setCookie(name, "", -1);
+        },
+        setCookie:function(name,value){
+            var cookie = [name, '=', JSON.stringify(value)].join('');
+            document.cookie = cookie;
+        },
         modifyOne:function (products,id,num) {
             for(var i = 0; i < products.length; i++){
             	var product = products[i];

@@ -36,4 +36,7 @@
             group by uid) B on A.version=B.version
             and A.uid = B.uid where owner_uid=1
     </select>
+    <update id="updateCount">
+        update t_commodity set count = #{count}  where uid = #{commodity_id} and version = #{commodity_version};
+    </update>
 </mapper>

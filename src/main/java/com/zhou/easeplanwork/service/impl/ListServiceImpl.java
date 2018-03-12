@@ -24,6 +24,14 @@ public class ListServiceImpl implements ListService {
     SqlSessionFactory sqlSessionFactory;
 
     @Override
+    public List<Trade> listTradeByBatchId(int batch_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TradeDao tradeDao = sqlSession.getMapper(TradeDao.class);
+        List<Trade> tradeList = tradeDao.getTradeInfoByBatchId(batch_id);
+        return tradeList;
+    }
+
+    @Override
     @Transactional
     public List<Trade> listTrade(int buyer_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();

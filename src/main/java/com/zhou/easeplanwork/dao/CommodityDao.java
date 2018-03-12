@@ -23,4 +23,6 @@ public interface CommodityDao {
 
     public List<Commodity> getAllCurrentCommodityByOwnerId(int owner_id);
 
+    public void updateCount(@Param("commodity_id") int commodity_id, @Param("commodity_version")int commodity_version, @Param("count")int count);
+
 }

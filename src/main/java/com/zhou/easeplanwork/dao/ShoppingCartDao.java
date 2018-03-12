@@ -9,4 +9,5 @@ import java.util.List;
 public interface ShoppingCartDao {
     public Boolean addToShoppingCart(ShoppingCart shoppingCart);
     List<ShoppingCart> getShoppingCart(@Param("user_id") Integer user_id);
+    public Boolean deleteShoppingCart(@Param("user_id") Integer user_id, @Param("commodity_id") Integer commodity_id);
 }

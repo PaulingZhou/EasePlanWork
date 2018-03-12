@@ -13,6 +13,10 @@ insert into t_shoppingcart (
         SELECT * FROM t_shoppingcart WHERE user_id=#{user_id}
     </select>
 
+    <delete id="deleteShoppingCart">
+        DELETE FROM t_shoppingcart WHERE user_id=#{user_id} AND commodity_id=#{commodity_id}
+    </delete>
+
     <resultMap id="shoppingCartResultMap" type="com.zhou.easeplanwork.meta.ShoppingCart">
         <id column="commodity_id" property="id" />
         <id column="count" property="num" />

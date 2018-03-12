@@ -11,5 +11,6 @@ public interface TradeDao {
     public int getCurrentBatchId();
     List<Trade> getTradeInfoByBuyerId(int buyer_id);
     List<Trade> getAllTrade();
+    List<Trade> getTradeInfoByBatchId(int batch_id);
 
 }
